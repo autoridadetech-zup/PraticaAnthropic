@@ -183,7 +183,7 @@
       font-size: 11.5px;
       font-weight: 600;
       padding: 3px 10px;
-      border-radius: 999px;
+      border-radius: 10px;
       background: var(--surface2);
       color: var(--muted);
       margin-right: 6px;
@@ -191,6 +191,9 @@
     }
 
     .badge.dom { background: var(--accent-soft); color: var(--accent-text); }
+    .badge.easy { background: var(--good-soft); color: var(--good); }
+    .badge.medium { background: var(--warn-soft); color: var(--warn); }
+    .badge.hard { background: var(--bad-soft); color: var(--bad); }
     .qtext { font-size: 16.5px; font-weight: 500; margin: 14px 0 6px; white-space: pre-wrap; }
     .selhint { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
 
@@ -219,6 +222,11 @@
     .feedback.ok { background: var(--good-soft); border: 1px solid var(--good); }
     .feedback.no { background: var(--bad-soft); border: 1px solid var(--bad); }
     .feedback .verdict { font-weight: 800; margin-bottom: 6px; }
+    .why { margin-top: 10px; font-size: 14px; }
+    .why div { margin-top: 5px; }
+    .why b { color: var(--bad); }
+    .refs { margin-top: 10px; font-size: 13px; }
+    .refs a { color: var(--accent-text); word-break: break-all; }
 
     details { margin-top: 10px; }
     summary { cursor: pointer; font-weight: 600; color: var(--accent-text); font-size: 13.5px; }
@@ -662,6 +670,7 @@
       $('qCounter').textContent = `Questão ${quiz.idx + 1} de ${quiz.qs.length}`;
       $('qMeta').textContent = '';
       let badges = `<span class="badge dom">${q.domain}${WEIGHTS[q.domain] ? ' · ' + WEIGHTS[q.domain] : ''}</span><span class="badge">${q.source}</span>`;
+      if (q.difficulty) badges += `<span class="badge ${difficultyClass(q.difficulty)}">${esc(q.difficulty)}</span>`;
       if (q.scenario) badges += `<span class="badge">📋 ${q.scenario}</span>`;
       let html = `<div>${badges}</div><div class="qtext">${esc(q.question)}</div>`;
       html += `<div class="selhint">${q.type === 'multi' ? `Selecione ${q.select} alternativas` : 'Selecione UMA alternativa'}</div>`;
@@ -709,9 +718,33 @@
       const ok = arrEq(sel, q.correct);
       let h = `<div class="feedback ${ok ? 'ok' : 'no'}"><div class="verdict">${ok ? '✅ Correto!' : '❌ Incorreto — resposta: ' + q.correct.join(', ')}</div>`;
       if (q.explanation) h += `<div>${esc(q.explanation)}</div>`;
+      h += metadataHtml(q);
       if (q.translation) h += `<details><summary>🇧🇷 Ver questão traduzida</summary><div style="margin-top:8px;white-space:pre-wrap">${esc(q.translation)}</div></details>`;
       h += `</div>`;
       return h;
+    }
+
+    function difficultyClass(value) {
+      const normalized = String(value).toLowerCase();
+      if (normalized.includes('easy') || normalized.includes('fácil')) return 'easy';
+      if (normalized.includes('hard') || normalized.includes('difícil')) return 'hard';
+      return 'medium';
+    }
+
+    function metadataHtml(q) {
+      let html = '';
+      if (q.whyWrong) {
+        const entries = typeof q.whyWrong === 'object' ? Object.entries(q.whyWrong) : [['', q.whyWrong]];
+        html += `<div class="why"><b>Por que as outras estão erradas</b>${entries.map(([key, value]) => `<div>${key ? `<strong>${esc(key)}:</strong> ` : ''}${esc(value)}</div>`).join('')}</div>`;
+      }
+      if (Array.isArray(q.refs) && q.refs.length) {
+        html += `<div class="refs"><strong>Referências:</strong> ${q.refs.map(ref => {
+          const url = typeof ref === 'string' ? ref : ref.url;
+          const label = typeof ref === 'string' ? ref : (ref.label || ref.url);
+          return url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : '';
+        }).filter(Boolean).join(' · ')}</div>`;
+      }
+      return html;
     }
 
     function renderPalette() {
@@ -784,6 +817,7 @@
         }).join('');
         let extra = '';
         if (q.explanation) extra += `<details ${ok ? '' : 'open'}><summary>💡 Explicação</summary><div style="margin-top:8px;white-space:pre-wrap">${esc(q.explanation)}</div></details>`;
+        extra += metadataHtml(q);
         if (q.translation) extra += `<details><summary>🇧🇷 Ver questão traduzida</summary><div style="margin-top:8px;white-space:pre-wrap">${esc(q.translation)}</div></details>`;
         return `<div class="review-q">
       <div><span class="${ok ? 'tag-ok' : 'tag-no'}">${ok ? '✅' : '❌'}</span> <span class="badge dom">${q.domain}</span><span class="badge">${q.source}</span>${sel.length ? '' : '<span class="badge" style="color:var(--bad)">sem resposta</span>'}</div>
