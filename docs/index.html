@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="clawd.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+
   <!-- CARREGAMENTO DO BANCO DE QUESTÕES EXTERNO -->
   <script src="questions.js"></script>
 
@@ -72,7 +72,9 @@
       --shadow: 0 1px 3px rgba(0, 0, 0, .4);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       background: var(--bg);
@@ -89,8 +91,18 @@
       padding: 24px 20px 80px;
     }
 
-    h1 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin: 0; }
-    .sub { color: var(--muted); margin: 4px 0 0; font-size: 14px; }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin: 0;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin: 4px 0 0;
+      font-size: 14px;
+    }
 
     .card {
       background: var(--surface);
@@ -110,7 +122,11 @@
       color: var(--muted);
     }
 
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
     .chip {
       border: 1.5px solid var(--border);
@@ -132,8 +148,16 @@
       font-weight: 600;
     }
 
-    .row { display: flex; gap: 24px; flex-wrap: wrap; }
-    .row>div { flex: 1; min-width: 230px; }
+    .row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .row>div {
+      flex: 1;
+      min-width: 230px;
+    }
 
     .btn {
       background: var(--accent);
@@ -148,10 +172,27 @@
       transition: opacity .12s;
     }
 
-    .btn:hover { opacity: .9; }
-    .btn.ghost { background: var(--surface); color: var(--text); border: 1.5px solid var(--border); font-weight: 600; }
-    .btn.small { padding: 8px 14px; font-size: 13.5px; border-radius: 8px; }
-    .btn:disabled { opacity: .45; cursor: default; }
+    .btn:hover {
+      opacity: .9;
+    }
+
+    .btn.ghost {
+      background: var(--surface);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      font-weight: 600;
+    }
+
+    .btn.small {
+      padding: 8px 14px;
+      font-size: 13.5px;
+      border-radius: 8px;
+    }
+
+    .btn:disabled {
+      opacity: .45;
+      cursor: default;
+    }
 
     .topbar {
       display: flex;
@@ -176,7 +217,10 @@
       background: var(--surface2);
     }
 
-    .timer.low { background: var(--bad-soft); color: var(--bad); }
+    .timer.low {
+      background: var(--bad-soft);
+      color: var(--bad);
+    }
 
     .badge {
       display: inline-block;
@@ -190,12 +234,38 @@
       margin-bottom: 4px;
     }
 
-    .badge.dom { background: var(--accent-soft); color: var(--accent-text); }
-    .badge.easy { background: var(--good-soft); color: var(--good); }
-    .badge.medium { background: var(--warn-soft); color: var(--warn); }
-    .badge.hard { background: var(--bad-soft); color: var(--bad); }
-    .qtext { font-size: 16.5px; font-weight: 500; margin: 14px 0 6px; white-space: pre-wrap; }
-    .selhint { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+    .badge.dom {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+    }
+
+    .badge.easy {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+
+    .badge.medium {
+      background: var(--warn-soft);
+      color: var(--warn);
+    }
+
+    .badge.hard {
+      background: var(--bad-soft);
+      color: var(--bad);
+    }
+
+    .qtext {
+      font-size: 16.5px;
+      font-weight: 500;
+      margin: 14px 0 6px;
+      white-space: pre-wrap;
+    }
+
+    .selhint {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
 
     .opt {
       display: flex;
@@ -210,30 +280,114 @@
       background: var(--surface);
     }
 
-    .opt:hover { border-color: var(--accent); }
-    .opt .letter { font-weight: 800; min-width: 22px; color: var(--muted); }
-    .opt.sel { border-color: var(--accent); background: var(--accent-soft); }
-    .opt.sel .letter { color: var(--accent-text); }
-    .opt.correct { border-color: var(--good); background: var(--good-soft); }
-    .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
-    .opt.locked { cursor: default; }
+    .opt:hover {
+      border-color: var(--accent);
+    }
 
-    .feedback { border-radius: 11px; padding: 14px 16px; margin-top: 14px; font-size: 14.5px; }
-    .feedback.ok { background: var(--good-soft); border: 1px solid var(--good); }
-    .feedback.no { background: var(--bad-soft); border: 1px solid var(--bad); }
-    .feedback .verdict { font-weight: 800; margin-bottom: 6px; }
-    .why { margin-top: 10px; font-size: 14px; }
-    .why div { margin-top: 5px; }
-    .why b { color: var(--bad); }
-    .refs { margin-top: 10px; font-size: 13px; }
-    .refs a { color: var(--accent-text); word-break: break-all; }
+    .opt .letter {
+      font-weight: 800;
+      min-width: 22px;
+      color: var(--muted);
+    }
 
-    details { margin-top: 10px; }
-    summary { cursor: pointer; font-weight: 600; color: var(--accent-text); font-size: 13.5px; }
-    .nav { display: flex; gap: 10px; margin-top: 18px; align-items: center; flex-wrap: wrap; }
-    .spacer { flex: 1; }
+    .opt.sel {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
 
-    .palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; margin-top: 12px; }
+    .opt.sel .letter {
+      color: var(--accent-text);
+    }
+
+    .opt.correct {
+      border-color: var(--good);
+      background: var(--good-soft);
+    }
+
+    .opt.wrong {
+      border-color: var(--bad);
+      background: var(--bad-soft);
+    }
+
+    .opt.locked {
+      cursor: default;
+    }
+
+    .feedback {
+      border-radius: 11px;
+      padding: 14px 16px;
+      margin-top: 14px;
+      font-size: 14.5px;
+    }
+
+    .feedback.ok {
+      background: var(--good-soft);
+      border: 1px solid var(--good);
+    }
+
+    .feedback.no {
+      background: var(--bad-soft);
+      border: 1px solid var(--bad);
+    }
+
+    .feedback .verdict {
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .why {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .why div {
+      margin-top: 5px;
+    }
+
+    .why b {
+      color: var(--bad);
+    }
+
+    .refs {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .refs a {
+      color: var(--accent-text);
+      word-break: break-all;
+    }
+
+    details {
+      margin-top: 10px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent-text);
+      font-size: 13.5px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+      gap: 6px;
+      margin-top: 12px;
+    }
+
     .pal {
       border: 1.5px solid var(--border);
       background: var(--surface);
@@ -246,35 +400,146 @@
       font-family: inherit;
       color: var(--text);
     }
-    .pal.answered { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-text); }
-    .pal.marked { border-color: var(--warn); background: var(--warn-soft); color: var(--warn); }
-    .pal.cur { outline: 2.5px solid var(--accent); outline-offset: 1px; }
 
-    .score-big { font-size: 44px; font-weight: 800; letter-spacing: -.02em; }
-    .score-big small { font-size: 18px; color: var(--muted); font-weight: 600; }
-    .passline { font-weight: 700; margin-top: 2px; }
+    .pal.answered {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
 
-    .bar-row { margin-top: 14px; }
-    .bar-label { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; margin-bottom: 5px; }
-    .bar-label .pct { font-variant-numeric: tabular-nums; }
-    .bar { height: 10px; border-radius: 6px; background: var(--surface2); position: relative; overflow: visible; }
-    .bar .fill { height: 100%; border-radius: 6px; background: var(--accent); transition: width .5s; }
-    .bar .fill.good { background: var(--good); }
-    .bar .fill.bad { background: var(--bad); }
-    .bar .target { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--muted); left: 75%; }
+    .pal.marked {
+      border-color: var(--warn);
+      background: var(--warn-soft);
+      color: var(--warn);
+    }
 
-    .review-q { border-top: 1px solid var(--border); padding: 18px 0; }
-    .review-q:first-of-type { border-top: none; }
-    .tag-ok { color: var(--good); font-weight: 700; }
-    .tag-no { color: var(--bad); font-weight: 700; }
+    .pal.cur {
+      outline: 2.5px solid var(--accent);
+      outline-offset: 1px;
+    }
 
-    .hist-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-    .hist-table th, .hist-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); }
-    .hist-table th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+    .score-big {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
 
-    .footer-note { color: var(--muted); font-size: 12.5px; margin-top: 20px; text-align: center; }
-    .hidden { display: none; }
-    code { background: var(--surface2); padding: 1px 5px; border-radius: 5px; font-size: .92em; }
+    .score-big small {
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .passline {
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .bar-row {
+      margin-top: 14px;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .bar-label .pct {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 6px;
+      background: var(--surface2);
+      position: relative;
+      overflow: visible;
+    }
+
+    .bar .fill {
+      height: 100%;
+      border-radius: 6px;
+      background: var(--accent);
+      transition: width .5s;
+    }
+
+    .bar .fill.good {
+      background: var(--good);
+    }
+
+    .bar .fill.bad {
+      background: var(--bad);
+    }
+
+    .bar .target {
+      position: absolute;
+      top: -3px;
+      bottom: -3px;
+      width: 2px;
+      background: var(--muted);
+      left: 75%;
+    }
+
+    .review-q {
+      border-top: 1px solid var(--border);
+      padding: 18px 0;
+    }
+
+    .review-q:first-of-type {
+      border-top: none;
+    }
+
+    .tag-ok {
+      color: var(--good);
+      font-weight: 700;
+    }
+
+    .tag-no {
+      color: var(--bad);
+      font-weight: 700;
+    }
+
+    .hist-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .hist-table th,
+    .hist-table td {
+      text-align: left;
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hist-table th {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 12.5px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    code {
+      background: var(--surface2);
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-size: .92em;
+    }
 
     .brand-header {
       display: flex;
@@ -287,15 +552,43 @@
       border-radius: 14px;
       margin-bottom: 20px;
     }
-    .brand-left { display: flex; align-items: center; gap: 12px; }
-    .autoridade-logo { height: 48px; width: auto; }
-    .brand-title h1 { font-size: 20px; color: #ffffff; margin: 0; }
-    .brand-title p { font-size: 12px; color: #DED4D4; margin: 2px 0 0 0; }
-    .clawd-mascot { height: 45px; width: auto; }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .autoridade-logo {
+      height: 48px;
+      width: auto;
+    }
+
+    .brand-title h1 {
+      font-size: 20px;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: #DED4D4;
+      margin: 2px 0 0 0;
+    }
+
+    .clawd-mascot {
+      height: 45px;
+      width: auto;
+    }
 
     @media(max-width:600px) {
-      .wrap { padding: 16px 12px 60px; }
-      h1 { font-size: 22px; }
+      .wrap {
+        padding: 16px 12px 60px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
@@ -320,9 +613,12 @@
       <!-- CARD DE IDENTIFICAÇÃO COM E-MAIL E VALIDAÇÃO -->
       <div class="card" id="emailCard">
         <h2>Identificação</h2>
-        <p class="sub" style="margin-bottom:10px">Digite seu e-mail para começar. Seus resultados serão registrados automaticamente na planilha.</p>
-        <input type="email" id="userEmail" placeholder="nome@zup.com.br" style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:15px;background:var(--surface);color:var(--text)">
-        <div id="emailMsg" style="margin-top:8px;font-size:13.5px;display:none;padding:8px 12px;border-radius:8px;"></div>
+        <p class="sub" style="margin-bottom:10px">Digite seu e-mail para começar. Seus resultados serão registrados
+          automaticamente na planilha.</p>
+        <input type="email" id="userEmail" placeholder="nome@zup.com.br"
+          style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:15px;background:var(--surface);color:var(--text)">
+        <div id="emailMsg" style="margin-top:8px;font-size:13.5px;display:none;padding:8px 12px;border-radius:8px;">
+        </div>
       </div>
 
       <div class="card">
@@ -352,7 +648,8 @@
       </div>
 
       <div class="card">
-        <h2>Domínios <span style="font-weight:400;text-transform:none;letter-spacing:0">— clique para filtrar (vazio = todos)</span></h2>
+        <h2>Domínios <span style="font-weight:400;text-transform:none;letter-spacing:0">— clique para filtrar (vazio =
+            todos)</span></h2>
         <div class="chips" id="domChips"></div>
       </div>
 
@@ -369,8 +666,10 @@
       </div>
 
       <p class="footer-note">
-        Desenvolvido por <strong>Thiago Amarante</strong> (<a href="mailto:thiago.amarante@zup.com.br" style="color:var(--accent-text);text-decoration:none;">thiago.amarante@zup.com.br</a>).<br>
-        Questões carregadas dinamicamente via <code>questions.js</code>. No modo prova o tempo é de 2 min/questão, igual à prova real.
+        Desenvolvido por <strong>Thiago Amarante</strong> (<a href="mailto:thiago.amarante@zup.com.br"
+          style="color:var(--accent-text);text-decoration:none;">thiago.amarante@zup.com.br</a>).<br>
+        Questões carregadas dinamicamente via <code>questions.js</code>. No modo prova o tempo é de 2 min/questão, igual
+        à prova real.
       </p>
     </div>
 
@@ -404,7 +703,8 @@
         <p class="sub" id="scoreMeta"></p>
       </div>
       <div class="card">
-        <h2>Por domínio <span style="font-weight:400;text-transform:none;letter-spacing:0">— a linha marca a meta de 75%</span></h2>
+        <h2>Por domínio <span style="font-weight:400;text-transform:none;letter-spacing:0">— a linha marca a meta de
+            75%</span></h2>
         <div id="domBars"></div>
       </div>
       <div class="nav">
@@ -415,6 +715,7 @@
         <h2>Revisão</h2>
         <div class="chips" style="margin-bottom:6px" id="revFilter">
           <button class="chip on" data-f="wrong">Só erradas</button>
+          <button class="chip" data-f="marked">🚩 Marcadas</button>
           <button class="chip" data-f="all">Todas</button>
         </div>
         <div id="reviewList"></div>
@@ -513,19 +814,19 @@
     const SOURCES = [...new Set(ALL.map(q => q.source))].filter(Boolean).sort();
 
     const WEIGHTS = {
-      "Agentic Architecture & Orchestration": "27%", 
-      "Tool Design & MCP Integration": "18%", 
-      "Claude Code Configuration & Workflows": "20%", 
-      "Prompt Engineering & Structured Output": "20%", 
+      "Agentic Architecture & Orchestration": "27%",
+      "Tool Design & MCP Integration": "18%",
+      "Claude Code Configuration & Workflows": "20%",
+      "Prompt Engineering & Structured Output": "20%",
       "Context Management & Reliability": "15%"
     };
 
     const $ = id => document.getElementById(id);
-    let cfg = {mode: 'exam', src: 'all', count: '60', doms: new Set()};
+    let cfg = { mode: 'exam', src: 'all', count: '60', doms: new Set() };
     let quiz = null, timerInt = null;
 
     function lsGet(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
-    function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
 
     function initSetup() {
       // 1. Renderiza os Domínios
@@ -540,7 +841,7 @@
 
       // 2. Renderiza o Banco de Questões com a contagem dinamicamente a partir do questions.js
       const sc = $('srcChips'); sc.innerHTML = '';
-      
+
       // Botão "Todas" com a contagem total
       const btnAllSrc = document.createElement('button');
       btnAllSrc.className = 'chip on';
@@ -570,7 +871,7 @@
         });
       }
 
-      renderHistory(); 
+      renderHistory();
       updateInfo();
     }
 
@@ -592,7 +893,7 @@
       const p = pool();
       const n = cfg.count === 'all' ? p.length : Math.min(+cfg.count, p.length);
       $('startInfo').textContent = `${n} questões disponíveis` + (cfg.mode === 'exam' ? ` · ${Math.round(n * 2)} min` : ' · sem tempo');
-      
+
       const isEmailValid = validateEmailUI();
       $('startBtn').disabled = (n === 0 || !isEmailValid);
     }
@@ -602,7 +903,7 @@
       if (!h.length) return;
       const domAvg = {};
       h.forEach(a => Object.entries(a.domains || {}).forEach(([d, v]) => {
-        domAvg[d] = domAvg[d] || {c: 0, t: 0}; domAvg[d].c += v.c; domAvg[d].t += v.t;
+        domAvg[d] = domAvg[d] || { c: 0, t: 0 }; domAvg[d].c += v.c; domAvg[d].t += v.t;
       }));
       let rows = h.slice(-8).reverse().map(a => {
         const pct = Math.round(100 * a.score / a.total);
@@ -623,7 +924,7 @@
   <div class="bar"><div class="fill ${cls}" style="width:${Math.min(pct, 100)}%"></div><div class="target"></div></div></div>`;
     }
 
-    function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+    function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }
 
     function startQuiz(customQs) {
       if (!validateEmailUI()) {
@@ -756,7 +1057,7 @@
         if (quiz.marked.has(q.id)) b.classList.add('marked');
         if (i === quiz.idx) b.classList.add('cur');
         b.textContent = i + 1;
-        b.onclick = () => { quiz.idx = i; renderQ(); window.scrollTo({top: 0}); };
+        b.onclick = () => { quiz.idx = i; renderQ(); window.scrollTo({ top: 0 }); };
         p.appendChild(b);
       });
     }
@@ -772,13 +1073,13 @@
       let score = 0; const dom = {};
       quiz.qs.forEach(q => {
         const ok = arrEq(quiz.answers[q.id] || [], q.correct);
-        dom[q.domain] = dom[q.domain] || {c: 0, t: 0}; dom[q.domain].t++;
+        dom[q.domain] = dom[q.domain] || { c: 0, t: 0 }; dom[q.domain].t++;
         if (ok) { score++; dom[q.domain].c++; }
       });
       quiz.score = score; quiz.dom = dom;
       const hist = lsGet('ccaf-history', []);
       hist.push({
-        date: new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'}),
+        date: new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
         mode: quiz.mode, score, total: quiz.qs.length, domains: dom
       });
       lsSet('ccaf-history', hist);
@@ -795,7 +1096,7 @@
         document.querySelectorAll('#revFilter .chip').forEach(x => x.classList.remove('on'));
         b.classList.add('on'); renderReview(b.dataset.f);
       });
-      show('results'); window.scrollTo({top: 0});
+      show('results'); window.scrollTo({ top: 0 });
     }
 
     function fmtUsed() {
@@ -804,24 +1105,44 @@
     }
 
     function renderReview(filter) {
-      const list = quiz.qs.filter(q => filter === 'all' || !arrEq(quiz.answers[q.id] || [], q.correct));
-      if (!list.length) { $('reviewList').innerHTML = '<p class="sub">Nenhuma questão errada. 🎉</p>'; return; }
+      const list = quiz.qs.filter(q => {
+        if (filter === 'wrong') return !arrEq(quiz.answers[q.id] || [], q.correct);
+        if (filter === 'marked') return quiz.marked.has(q.id);
+        return true; // filter === 'all'
+      });
+
+      if (!list.length) {
+        const msg = filter === 'marked' ? 'Nenhuma questão foi marcada durante o simulado.' : 'Nenhuma questão errada. 🎉';
+        $('reviewList').innerHTML = `<p class="sub">${msg}</p>`;
+        return;
+      }
+
       $('reviewList').innerHTML = list.map(q => {
         const sel = quiz.answers[q.id] || [];
         const ok = arrEq(sel, q.correct);
+        const isMarked = quiz.marked.has(q.id);
+
         let opts = Object.keys(q.options).sort().map(L => {
           let cls = 'opt locked';
           if (q.correct.includes(L)) cls += ' correct';
           else if (sel.includes(L)) cls += ' wrong';
           return `<div class="${cls}"><span class="letter">${L}</span><span>${esc(q.options[L])}</span></div>`;
         }).join('');
+
         let extra = '';
         if (q.explanation) extra += `<details ${ok ? '' : 'open'}><summary>💡 Explicação</summary><div style="margin-top:8px;white-space:pre-wrap">${esc(q.explanation)}</div></details>`;
-        extra += metadataHtml(q);
         if (q.translation) extra += `<details><summary>🇧🇷 Ver questão traduzida</summary><div style="margin-top:8px;white-space:pre-wrap">${esc(q.translation)}</div></details>`;
+
         return `<div class="review-q">
-      <div><span class="${ok ? 'tag-ok' : 'tag-no'}">${ok ? '✅' : '❌'}</span> <span class="badge dom">${q.domain}</span><span class="badge">${q.source}</span>${sel.length ? '' : '<span class="badge" style="color:var(--bad)">sem resposta</span>'}</div>
-      <div class="qtext" style="font-size:15px">${esc(q.question)}</div>${opts}${extra}</div>`;
+      <div>
+        <span class="${ok ? 'tag-ok' : 'tag-no'}">${ok ? '✅' : '❌'}</span> 
+        <span class="badge dom">${q.domain}</span>
+        <span class="badge">${q.source}</span>
+        ${isMarked ? '<span class="badge" style="background:var(--warn-soft);color:var(--warn)">🚩 Marcada</span>' : ''}
+        ${sel.length ? '' : '<span class="badge" style="color:var(--bad)">sem resposta</span>'}
+      </div>
+      <div class="qtext" style="font-size:15px">${esc(q.question)}</div>${opts}${extra}
+    </div>`;
       }).join('');
     }
 
@@ -835,7 +1156,7 @@
     $('markBtn').onclick = () => { const q = quiz.qs[quiz.idx]; quiz.marked.has(q.id) ? quiz.marked.delete(q.id) : quiz.marked.add(q.id); renderQ(); };
     $('finishBtn').onclick = () => finish();
     $('quitBtn').onclick = () => { if (confirm('Sair sem salvar o resultado?')) { clearInterval(timerInt); show('setup'); renderHistory(); } };
-    $('againBtn').onclick = () => { show('setup'); renderHistory(); updateInfo(); window.scrollTo({top: 0}); };
+    $('againBtn').onclick = () => { show('setup'); renderHistory(); updateInfo(); window.scrollTo({ top: 0 }); };
     $('wrongBtn').onclick = () => {
       const wrong = quiz.qs.filter(q => !arrEq(quiz.answers[q.id] || [], q.correct));
       if (!wrong.length) { alert('Nenhuma questão errada!'); return; }
