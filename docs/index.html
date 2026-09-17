@@ -85,6 +85,80 @@
       font-size: 15px;
     }
 
+    .app-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 16px 20px 0;
+    }
+
+    .app-tab-spacer {
+      flex: 1;
+    }
+
+    .theme {
+      display: inline-flex;
+      border: 2px solid var(--border);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .theme button {
+      background: none;
+      border: none;
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: var(--muted);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      min-width: 30px;
+    }
+
+    .theme button svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .theme button.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .app-tab {
+      border: 1.5px solid var(--border);
+      border-radius: 10px 10px 0 0;
+      background: var(--surface2);
+      color: var(--muted);
+      padding: 10px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .app-tab.active {
+      background: var(--surface);
+      border-bottom-color: var(--surface);
+      color: var(--accent-text);
+    }
+
+    .app-panel.hidden {
+      display: none;
+    }
+
+    .english-frame {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 64px);
+      min-height: 0;
+      border: 0;
+    }
+
     .wrap {
       max-width: 880px;
       margin: 0 auto;
@@ -595,6 +669,18 @@
 
 <body>
 
+  <nav class="app-tabs" aria-label="Aplicações">
+    <button class="app-tab active" type="button" data-panel="exam-panel">Simulado CCAF</button>
+    <button class="app-tab" type="button" data-panel="english-panel">Treino de Inglês</button>
+    <span class="app-tab-spacer"></span>
+    <div class="theme" role="group" aria-label="Tema">
+      <button type="button" data-theme-choice="light" title="Tema claro" aria-label="Tema claro"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1zm17 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1z"/></svg></button>
+      <button type="button" data-theme-choice="auto" title="Seguir o sistema" aria-label="Seguir o sistema">Auto</button>
+      <button type="button" data-theme-choice="dark" title="Tema escuro" aria-label="Tema escuro"><svg viewBox="0 0 24 24"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a.7.7 0 0 0-.9-.9A9.6 9.6 0 1 0 21.4 15.5a.7.7 0 0 0-.9-.9z"/></svg></button>
+    </div>
+  </nav>
+
+  <div class="app-panel" id="exam-panel">
   <div class="wrap">
     <div id="setup">
       <!-- CABEÇALHO -->
@@ -722,8 +808,35 @@
       </div>
     </div>
   </div>
+  </div>
+
+  <div class="app-panel hidden" id="english-panel">
+    <iframe class="english-frame" title="Treino de Inglês CCAR-F"
+      src="claude-exam-prep-english-main/claude-exam-prep-english-main/index.html"></iframe>
+  </div>
 
   <script>
+    document.querySelectorAll('.app-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.app-tab').forEach((item) => item.classList.toggle('active', item === tab));
+        document.querySelectorAll('.app-panel').forEach((panel) => panel.classList.toggle('hidden', panel.id !== tab.dataset.panel));
+      });
+    });
+
+    const themeChoices = document.querySelectorAll('[data-theme-choice]');
+    function applyThemeChoice(choice) {
+      const theme = choice === 'auto'
+        ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        : choice;
+      document.documentElement.setAttribute('data-theme', theme);
+      themeChoices.forEach((button) => button.classList.toggle('active', button.dataset.themeChoice === choice));
+      const frame = document.querySelector('.english-frame');
+      if (frame && frame.contentDocument) frame.contentDocument.documentElement.setAttribute('data-theme', choice === 'auto' ? '' : choice);
+      localStorage.setItem('theme-choice', choice);
+    }
+    themeChoices.forEach((button) => button.addEventListener('click', () => applyThemeChoice(button.dataset.themeChoice)));
+    applyThemeChoice(localStorage.getItem('theme-choice') || 'auto');
+
     // ==========================================================
     // CONFIGURAÇÕES DO GOOGLE FORMS (DISPARO PARA A PLANILHA)
     // ==========================================================

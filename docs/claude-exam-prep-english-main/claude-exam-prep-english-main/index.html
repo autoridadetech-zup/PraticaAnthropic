@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treino de Inglês CCAR-F</title>
+<meta name="description" content="Exercícios de múltipla escolha para treinar o inglês do exame Claude Certified Architect – Foundations (CCAR-F), com explicação de cada resposta e orientação de estudo.">
+<meta name="theme-color" content="#1FA98A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231FA98A'/%3E%3Ctext x='32' y='44' font-size='30' text-anchor='middle' font-family='Arial' font-weight='900' fill='white'%3EEN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== INÍCIO ===== -->
+<section id="screen-home" class="screen">
+  <header class="topbar home-bar">
+    <div class="brand">Treino de Inglês <span>CCAR-F</span></div>
+    <div class="stats">
+      <span class="stat" title="Lições concluídas"><span class="stat-label">Lições</span><b id="stat-done">0/0</b></span>
+      <span class="stat" title="Média de acertos nas lições concluídas"><span class="stat-label">Média</span><b id="stat-avg">–</b></span>
+      <div class="theme" role="group" aria-label="Tema">
+        <button type="button" data-theme-choice="light" title="Tema claro" aria-label="Tema claro"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5h0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1zm17 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1zM4.9 4.9a1 1 0 0 1 1.4 0l1.4 1.4a1 1 0 0 1-1.4 1.4L4.9 6.3a1 1 0 0 1 0-1.4zm11.4 11.4a1 1 0 0 1 1.4 0l1.4 1.4a1 1 0 0 1-1.4 1.4l-1.4-1.4a1 1 0 0 1 0-1.4zm2.8-11.4a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4 1.4l1.4-1.4a1 1 0 0 1 1.4 0zM7.7 16.3a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4-1.4l1.4-1.4a1 1 0 0 1 1.4 0z"/></svg></button>
+        <button type="button" data-theme-choice="auto" title="Seguir o sistema" aria-label="Seguir o sistema">Auto</button>
+        <button type="button" data-theme-choice="dark" title="Tema escuro" aria-label="Tema escuro"><svg viewBox="0 0 24 24"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a.7.7 0 0 0-.9-.9A9.6 9.6 0 1 0 21.4 15.5a.7.7 0 0 0-.9-.9z"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="home">
+    <div class="brand-header">
+      <div class="brand-left">
+        <img src="../../logo-autoridade-tech.png" alt="Autoridade Tech" class="autoridade-logo">
+        <div class="brand-title">
+          <h1>Treino de Inglês</h1>
+          <p>Claude Certified Architect – Foundations</p>
+        </div>
+      </div>
+      <img src="../../clawd.png" alt="Claw'd Mascote" class="clawd-mascot">
+    </div>
+    <p class="intro">Cada lição tem cerca de 10 a 15 questões de múltipla escolha sobre os termos em inglês do exame. Toda resposta vem com a explicação; ao final você recebe a pontuação e uma orientação do que revisar.</p>
+
+    <div id="review-card" class="card review hidden">
+      <div>
+        <div class="card-title">Revisão dos termos errados</div>
+        <div class="card-sub"><span id="review-count">0</span> termos pendentes de revisão</div>
+      </div>
+      <button class="btn btn-blue" id="btn-review" type="button">Revisar</button>
+    </div>
+
+    <div id="units"></div>
+
+    <details class="settings">
+      <summary>Configurações</summary>
+      <div class="settings-body">
+        <label class="toggle"><input type="checkbox" id="opt-typing"> Incluir exercícios de digitação (escrever o termo em inglês), além da múltipla escolha.</label>
+        <button class="btn btn-ghost" id="btn-reset" type="button">Reiniciar todo o progresso</button>
+        <p class="fine">Progresso salvo apenas neste navegador. Conteúdo próprio, baseado no guia oficial do exame.</p>
+      </div>
+    </details>
+
+    <p class="footer-note">
+      Desenvolvido por <strong>Victor Domenicali da Silva</strong> (<a href="mailto:victor.silva@zup.com.br">victor.silva@zup.com.br</a>).
+    </p>
+  </main>
+</section>
+
+<!-- ===== LIÇÃO ===== -->
+<section id="screen-lesson" class="screen hidden">
+  <header class="topbar lesson-bar">
+    <button class="icon-btn" id="btn-quit" type="button" aria-label="Sair da lição">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg>
+    </button>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="score" id="score" aria-label="Pontuação"></div>
+  </header>
+
+  <main class="lesson">
+    <div class="exercise" id="exercise"></div>
+  </main>
+
+  <footer class="lesson-footer" id="lesson-footer">
+    <div class="feedback hidden" id="feedback" aria-live="polite">
+      <div class="feedback-title" id="feedback-title"></div>
+      <div class="feedback-body" id="feedback-body"></div>
+    </div>
+    <div class="footer-actions">
+      <button class="btn btn-ghost" id="btn-skip" type="button">Não sei</button>
+      <button class="btn btn-primary" id="btn-check" type="button" disabled>Verificar</button>
+    </div>
+  </footer>
+</section>
+
+<!-- ===== RESULTADO ===== -->
+<section id="screen-result" class="screen hidden">
+  <main class="result">
+    <div class="result-card">
+      <p class="result-kicker" id="result-kicker">Lição concluída</p>
+      <h1 id="result-title"></h1>
+      <div class="result-stats">
+        <div class="tile"><div class="tile-label">Acertos</div><div class="tile-value" id="result-acc">0%</div></div>
+        <div class="tile"><div class="tile-label">Questões</div><div class="tile-value" id="result-count">0/0</div></div>
+        <div class="tile"><div class="tile-label">Tempo</div><div class="tile-value" id="result-time">0:00</div></div>
+      </div>
+      <div id="result-guidance" class="guidance"></div>
+      <div class="result-actions">
+        <button class="btn btn-ghost" id="btn-redo" type="button">Refazer lição</button>
+        <button class="btn btn-blue hidden" id="btn-review-now" type="button">Revisar erros</button>
+        <button class="btn btn-primary" id="btn-continue" type="button">Voltar ao início</button>
+      </div>
+    </div>
+  </main>
+</section>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
