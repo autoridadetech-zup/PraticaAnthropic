@@ -1054,7 +1054,7 @@
       }
       if (!qs.length) return;
       quiz = {
-        qs, idx: 0, answers: {}, marked: new Set(), mode: cfg.mode, done: {},
+        qs, idx: 0, answers: {}, pending: {}, marked: new Set(), mode: cfg.mode, done: {},
         secs: cfg.mode === 'exam' ? qs.length * 120 : 0
       };
       show('quiz');
@@ -1080,6 +1080,7 @@
     function renderQ() {
       const q = quiz.qs[quiz.idx];
       const sel = quiz.answers[q.id] || [];
+      const pending = quiz.pending[q.id] ? quiz.pending[q.id].slice() : sel.slice();
       const locked = quiz.mode === 'train' && quiz.done[q.id];
       $('qCounter').textContent = `Questão ${quiz.idx + 1} de ${quiz.qs.length}`;
       $('qMeta').textContent = '';
@@ -1087,11 +1088,11 @@
       if (q.difficulty) badges += `<span class="badge ${difficultyClass(q.difficulty)}">${esc(q.difficulty)}</span>`;
       if (q.scenario) badges += `<span class="badge">📋 ${q.scenario}</span>`;
       let html = `<div>${badges}</div><div class="qtext">${esc(q.question)}</div>`;
-      html += `<div class="selhint">${q.type === 'multi' ? `Selecione ${q.select} alternativas` : 'Selecione UMA alternativa'}</div>`;
+      html += `<div class="selhint">${q.type === 'multi' ? `Selecione ${q.select} alternativas` : 'Selecione UMA alternativa'} · a resposta só é salva após clicar em Confirmar resposta</div>`;
       const letters = Object.keys(q.options).sort();
       letters.forEach(L => {
         let cls = 'opt';
-        if (sel.includes(L)) cls += ' sel';
+        if (pending.includes(L)) cls += ' sel';
         if (locked) {
           cls += ' locked';
           if (q.correct.includes(L)) cls = 'opt locked correct';
@@ -1099,32 +1100,41 @@
         }
         html += `<div class="${cls}" data-l="${L}"><span class="letter">${L}</span><span>${esc(q.options[L])}</span></div>`;
       });
-      if (quiz.mode === 'train') {
-        if (!locked && q.type === 'multi') html += `<div class="nav"><button class="btn small" id="confirmBtn" ${sel.length !== q.select ? 'disabled' : ''}>Confirmar resposta</button></div>`;
-        if (locked) html += feedbackHtml(q, sel);
+      if (!locked) {
+        const required = q.type === 'multi' ? q.select : 1;
+        const canConfirm = pending.length === required;
+        html += `<div class="nav"><button class="btn small" id="confirmBtn" ${canConfirm ? '' : 'disabled'}>Confirmar resposta</button></div>`;
       }
+      if (quiz.mode === 'train' && locked) html += feedbackHtml(q, sel);
       $('qCard').innerHTML = html;
       if (!locked) {
         $('qCard').querySelectorAll('.opt').forEach(el => el.onclick = () => pick(q, el.dataset.l));
-        const cb = $('confirmBtn'); if (cb) cb.onclick = () => { quiz.done[q.id] = true; renderQ(); };
+        const cb = $('confirmBtn'); if (cb) cb.onclick = () => confirmAnswer(q);
       }
       $('prevBtn').disabled = quiz.idx === 0;
-      $('nextBtn').disabled = quiz.idx === quiz.qs.length - 1;
+      $('nextBtn').disabled = quiz.idx === quiz.qs.length - 1 || !(quiz.answers[q.id] || []).length;
       $('markBtn').style.opacity = quiz.marked.has(q.id) ? 1 : .6;
       renderPalette();
     }
 
     function pick(q, L) {
-      let sel = quiz.answers[q.id] || [];
+      let sel = quiz.pending[q.id] ? quiz.pending[q.id].slice() : (quiz.answers[q.id] || []).slice();
       if (q.type === 'single') {
         sel = [L];
-        quiz.answers[q.id] = sel;
-        if (quiz.mode === 'train') { quiz.done[q.id] = true; renderQ(); return; }
       } else {
         sel = sel.includes(L) ? sel.filter(x => x !== L) : [...sel, L];
         if (sel.length > q.select) sel = sel.slice(sel.length - q.select);
-        quiz.answers[q.id] = sel;
       }
+      quiz.pending[q.id] = sel;
+      renderQ();
+    }
+
+    function confirmAnswer(q) {
+      const sel = quiz.pending[q.id] ? quiz.pending[q.id].slice() : (quiz.answers[q.id] || []).slice();
+      const required = q.type === 'multi' ? q.select : 1;
+      if (sel.length !== required) return;
+      quiz.answers[q.id] = sel;
+      if (quiz.mode === 'train') quiz.done[q.id] = true;
       renderQ();
     }
 
